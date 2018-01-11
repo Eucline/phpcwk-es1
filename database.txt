@@ -1,0 +1,11 @@
+CREATE DATABASE `p15241925_db` COLLATE 'utf8_unicode_ci';
+GRANT SELECT, INSERT, UPDATE ON p15241925_db.* TO 'p15241925_web'@'localhost'
+IDENTIFIED BY 'sCull=66';
+
+USE p15241925_db;
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE `messages` (
+ `msg_source` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+ `msg_time` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+ `msg_message` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

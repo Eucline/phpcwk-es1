@@ -6,7 +6,9 @@
  * Time: 12:02
  */
 
-use PHPUnit\Framework\TestCase;
+require_once(dirname(__FILE__) . '/simpletest.php');
+
+//use PHPUnit\Framework\TestCase;
 
 class test extends TestCase{
     public function testUsername()
@@ -24,7 +26,4 @@ class test extends TestCase{
             Munumber::fromInteger(18)
         );
     }
-
-
 }
-

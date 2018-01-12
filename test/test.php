@@ -11,7 +11,20 @@ use PHPUnit\Framework\TestCase;
 class test extends TestCase{
     public function testUsername()
     {
-        
+        $this->assertInstanceOf(
+            username::class,
+            username::fromString('17qwerty')
+        );
     }
+
+    public function testMnumber()
+    {
+        $this->assertInstanceOf(
+            Mnumber::class,
+            Munumber::fromInteger(18)
+        );
+    }
+
+
 }
 

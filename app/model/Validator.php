@@ -1,38 +1,46 @@
 <?php
 
+/**
+ * Validator copied from lab 04 on ctec3110 author below,
+ * Author: CF Ingrams
+ * Email: <clinton@cfing.co.uk>
+ * Date: 22/10/2017
+ *
+ * modified: renamed class name. added filter to sanitise_string function.
+ */
 class Validator
 {
-  public function __construct() { }
+	public function __construct() { }
 
-  public function __destruct() { }
+	public function __destruct() { }
 
-  public function validate_temperature($p_temperature_to_check)
-  {
-    $m_checked_temperature = false;
+	public function sanitise_string($p_string_to_sanitise)
+	{
+		$m_sanitised_string = false;
 
-    if (isset($p_temperature_to_check))
-    {
-      $minimum_temperature_value = LOWEST_CENTIGRADE_TEMPERATURE;
-      $m_checked_value = filter_var($p_temperature_to_check, FILTER_VALIDATE_FLOAT);
-      if ($m_checked_value >= $minimum_temperature_value)
-      {
-        $m_checked_temperature = $m_checked_value;
-      }
-    }
-    return $m_checked_temperature;
-  }
+		if (!empty($p_string_to_sanitise))
+		{
+			$m_sanitised_string = filter_var($p_string_to_sanitise, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		}
+		return $m_sanitised_string;
+	}
 
-  public function validate_unit_type($p_type_to_check)
-  {
-    $m_checked_unit_type = false;
-    $m_arr_unit_type = TEMP_UNITS;
-    $result = array_key_exists($p_type_to_check, $m_arr_unit_type);
+	public function validate_integer($p_value_to_check)
+	{
+		$m_checked_value = false;
+		$options = array(
+			'options' => array(
+				'default' => -1, // value to return if the filter fails
+				'min_range' => 0
+			)
+		);
 
-    if ($result === true)
-    {
-      $m_checked_unit_type = $p_type_to_check;
-    }
+		if (isset($p_value_to_check))
+		{
+			$m_checked_value = filter_var($p_value_to_check, FILTER_VALIDATE_INT, $options);
+		}
 
-    return $m_checked_unit_type;
-  }
+		return $m_checked_value;
+	}
+
 }

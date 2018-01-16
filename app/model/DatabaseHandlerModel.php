@@ -4,6 +4,10 @@
  * User: p15241925
  * Date: 10/01/2018
  * Time: 13:25
+ *
+ * This is part of the model which holds the messages temporarily.
+ * The main usage of this class is to call store_data_in_database
+ * and get_data_from_database functions.
  */
 
 class DatabaseHandlerModel
@@ -29,11 +33,19 @@ class DatabaseHandlerModel
 
     public function __destruct() { }
 
-    public function set_msg_values($p_msg_source, $p_msg_time, $p_msg_message)
+    public function set_message_values($p_source, $p_time, $p_message)
     {
-        $this->c_msg_source = $p_msg_source;
-        $this->c_msg_time = $p_msg_time;
-        $this->c_msg_message = $p_msg_message;
+
+        $this->c_msg_source = $p_source;
+        $this->c_msg_time = $p_time;
+        $this->c_msg_message = $p_message;
+
+//        var_dump($this->c_msg_source);
+//        var_dump($this->c_msg_time);
+//        var_dump($this->c_msg_message);
+        //$this->c_msg_source = $p_msg_source;
+        //$this->c_msg_time = $p_msg_time;
+        //$this->c_msg_message = $p_msg_message;
     }
 
     public function set_wrapper_db($p_obj_wrapper_db)
@@ -56,6 +68,7 @@ class DatabaseHandlerModel
         return $this->c_arr_storage_result;
     }
 
+    /* returns a boolean representing if the storage was successful*/
     public function store_data_in_database()
     {
         $m_store_result = false;
@@ -66,5 +79,15 @@ class DatabaseHandlerModel
         $m_store_result = $this->c_obj_wrapper_db->store_messages($this->c_msg_source, $this->c_msg_time, $this->c_msg_message);
 
         return $m_store_result;
+    }
+    /* returns a boolean representing if the retrieval was successful*/
+    public function get_data_from_database()
+    {
+        $this->c_obj_wrapper_db->set_db_handle( $this->c_obj_db_handle);
+        $this->c_obj_wrapper_db->set_sql_queries( $this->c_obj_sql_queries);
+
+        $m_get_result = $this->c_obj_wrapper_db->get_all_messages();
+
+        return $m_get_result;
     }
 }

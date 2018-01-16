@@ -3,11 +3,15 @@
 /**
  * MySQLWrapper.php
  *
- * Access the sessions database
- *
+ * Acess the message database. this is an altered version of labwork on ctec3110.
+ * Original author below,
  * Author: CF Ingrams
  * Email: <clinton@cfing.co.uk>
  * Date: 22/10/2017
+ *
+ * Modified by: Jimmie.S p15241925
+ * Modifications: removed a function. created get_all_messages function.
+ *                altered the store_session function into store_messages.
  *
  * @author CF Ingrams <clinton@cfing.co.uk>
  * @copyright CFI
@@ -53,7 +57,7 @@ class MySQLWrapper
     $this->safe_query($m_query_string, $m_arr_query_parameters);
   }
 
-  public function safe_query($p_query_string, $p_arr_params = null)
+  public function safe_query($p_query_string, $p_arr_params)
   {
     $this->c_arr_errors['db_error'] = false;
     $m_query_string = $p_query_string;
@@ -118,5 +122,19 @@ class MySQLWrapper
     $m_arr_last_inserted_id = $this->safe_fetch_array();
     $m_last_inserted_id = $m_arr_last_inserted_id['LAST_INSERT_ID()'];
     return $m_last_inserted_id;
+  }
+  public function get_all_messages()
+  {
+
+      $m_query_string = $this->c_obj_sql_queries->get_table_values();
+
+      $this->c_obj_stmt = $this->c_obj_db_handle->prepare($m_query_string);
+      $this->c_obj_stmt->execute();
+
+
+      $m_arr_messages = $this->c_obj_stmt->fetchAll();
+      $this->c_obj_stmt->closeCursor();
+      //var_dump($m_arr_messages);
+      return $m_arr_messages;
   }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /* banner.html.twig */
-class __TwigTemplate_ed2d516c3cca08e73141c8067e86864284078b62b87b80702f6f3e25362ab930 extends Twig_Template
+class __TwigTemplate_e953ce41726224c33ec713cff80048ad3f29340c81b0266ec3dc16ee142dd331 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -41,9 +41,9 @@ class __TwigTemplate_ed2d516c3cca08e73141c8067e86864284078b62b87b80702f6f3e25362
         echo twig_escape_filter($this->env, ($context["page_heading_1"] ?? null), "html", null, true);
         echo "</h1>
         <p class=\"cent\">
-            Page last updated on <script type=\"text/javascript\">document.write(document.lastModified)</script>
+            Page last updated on <script>document.write(document.lastModified)</script>
             <br />
-            Maintained by Jimmie S, Eucline S and Vinni V
+            Maintained by Jimmie S P15241925
         </p>
 
     </div>
@@ -68,6 +68,6 @@ class __TwigTemplate_ed2d516c3cca08e73141c8067e86864284078b62b87b80702f6f3e25362
 
     public function getSourceContext()
     {
-        return new Twig_Source("", "banner.html.twig", "H:\\p3t\\phpappfolder\\includes\\phpcwk\\app\\templates\\banner.html.twig");
+        return new Twig_Source("", "banner.html.twig", "/home/p15241925/phpappfolder/includes/phpcwk/app/templates/banner.html.twig");
     }
 }

@@ -1,7 +1,8 @@
 <?php
 /**
+ * part of the model. handles the soap object and callings to the soap server.
+ * holds messages temporarily. parsing is done here.
  *
- * https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl
  */
 class MessageHandlerModel {
 
@@ -9,6 +10,7 @@ class MessageHandlerModel {
   private $c_password;
   private $c_mnumber;
   private $c_result;
+  private $c_arr_parsed_result;
 
   public function __construct(){}
 
@@ -20,7 +22,8 @@ class MessageHandlerModel {
     $this->c_password = $p_password;
     $this->c_mnumber = $p_mnumber;
   }
-
+  /* main function to be called from controller(retrievemessages.php
+   * returns a boolean if retrieval was successful or not*/
   public function perform_retrieve_messages()
   {
     $result = null;
@@ -31,9 +34,9 @@ class MessageHandlerModel {
     {
       $result = $this->get_messages($obj_soap_client_handle);
     }
-    var_dump($result);
+    //var_dump($result);
 
-    $this->c_result = current($result);
+    $this->c_result = $result;
   }
 
     private function create_soap_client()
@@ -57,30 +60,32 @@ class MessageHandlerModel {
     return $obj_soap_client_handle;
   }
 
-
-
+  /**
+   * soapcall for looking at messages stored containing the string "17-3110-Ad" which is how the group
+   * identifies its own messages
+   */
   private function get_messages($p_obj_soap_client_handle)
   {
     $m_result = null;
-    $m_arr_userinfo = array(
-      'username' => $this->c_username,
-      'password' => $this->c_password,
-      'count' => $this->c_mnumber,
-      'deviceMsisdn' => "",
-      'countryCode' => ""
-    );
-    //var_dump($m_arr_userinfo);
-
+    $temp_arr2 = array();
+    $group_number = "17-3110-Ad";
     try
     {
       //$message_array = $p_obj_soap_client_handle->__soapCall('peekMessages', array($m_arr_userinfo));
       $message_array = $p_obj_soap_client_handle->peekMessages($this->c_username, $this->c_password, $this->c_mnumber, "", "");
-      $m_result = $message_array;
+
 //      var_dump($p_obj_soap_client_handle->__getLastRequest());
 //      var_dump($p_obj_soap_client_handle->__getLastResponse());
 //      var_dump($p_obj_soap_client_handle->__getLastRequestHeaders());
 //      var_dump($p_obj_soap_client_handle->__getLastResponseHeaders());
 
+        foreach ( $message_array as $value )
+        {
+            if (strpos($value, $group_number) !== false){
+                $temp_arr2[] = $value;
+            }
+        }
+        $m_result = $temp_arr2;
     }
     catch (SoapFault $m_obj_exception)
     {
@@ -90,10 +95,24 @@ class MessageHandlerModel {
     return $m_result;
   }
 
-
+  /** parses the stored array of messages*/
+  public function parse_messages()
+  {
+    $temp_arr = array();
+    foreach ( $this->c_result as $value )
+    {
+      $temp_arr[] = simplexml_load_string($value) or die("cant parse it");
+    }
+    $this->c_arr_parsed_result = $temp_arr;
+  }
 
   public function get_result()
   {
     return $this->c_result;
   }
+  public function get_parsed_result()
+  {
+    return $this->c_arr_parsed_result;
+  }
+
 }

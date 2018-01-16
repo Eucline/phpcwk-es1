@@ -15,12 +15,16 @@
 
  $url_root = $_SERVER['SCRIPT_NAME'];
  $url_root = implode('/', explode('/', $url_root, -1));
- $css_path = $url_root . '/css/main.css';
+ $css_path = $url_root . '/css/main2.css';
  define('CSS_PATH', $css_path);
- define('APP_NAME', 'Message Handler CWK by group: 17-3110-Ad');
+ define('APP_NAME', 'Message Interface CWK by group: 17-3110-Ad');
  define('LANDING_PAGE', $_SERVER['SCRIPT_NAME']);
 
-
+/**
+ * sets classes path to model folder
+ * view is done with twig.
+ * pdo library used for database handling.
+ */
  $settings = [
    "settings" => [
      'displayErrorDetails' => true,
@@ -36,8 +40,8 @@
          ]],
      'pdo' => [
        'rdbms' => 'mysql',
-       'host' => 'localhost',
-       'db_name' => 'p15241925_db',
+       'host' => 'mysql.tech.dmu.ac.uk',
+       'db_name' => 'p15241925db',
        'port' => '3306',
        'user_name' => 'p15241925_web',
        'user_password' => 'sCull=66',

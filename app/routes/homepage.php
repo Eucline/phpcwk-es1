@@ -17,11 +17,13 @@ $app->get('/', function(Request $request, Response $response)
             'css_path' => CSS_PATH,
             'landing_page' => LANDING_PAGE,
             'method' => 'post',
+            'method2' => 'post',
             'action' => 'index.php/retrievemessages',
+            'action2' => 'index.php/displaymessages',
             'initial_input_box_value' => null,
             'page_title' => APP_NAME,
             'page_heading_1' => APP_NAME,
-            'page_heading_2' => 'Look at messages',
+            'page_heading_2' => 'Retrieval of 17-3110-Ad messages from M2M service server',
             'page_text' => 'Enter your M2M username, password and number of messages to be read',
         ]);
 })->setName('homepage');

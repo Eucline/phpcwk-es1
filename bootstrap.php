@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php';
+require '/home/p15241925/phpappfolder/vendor/autoload.php';
 
 $settings = require __DIR__ . '/app/settings.php';
 

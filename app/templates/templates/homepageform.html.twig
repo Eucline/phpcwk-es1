@@ -5,6 +5,7 @@
         <p>{{ page_text }}</p>
         <form action="{{ action }}" method={{ method }}>
             <fieldset>
+                <legend>Retrieve messages form</legend>
                 <br>
                 <table>
                   <tr>
@@ -20,15 +21,8 @@
                     <td><input id="mnumber" name="mnumber" type="number" value="{{ initial_input_box_value }}" size="5" maxlength="5"></td>
                   </tr>
                 </table>
-                <input type="submit" value="Retrieve messages >>>">
                 <br><br>
-                <p>{{ result }}</p>
-                <p>{{ result2 }}</p>
-            </fieldset>
-        </form>
-        <form action="{{ action2 }}" method={{ method2 }}>
-            <fieldset>
-            <input type="submit" value="Display messages >>>">
+                <input type="submit" value="Retrieve messages >>>">
             </fieldset>
         </form>
         <p class="curr_page"><a href="{{ landing_page }}">Home</a></p>
